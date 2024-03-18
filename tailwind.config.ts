@@ -13,6 +13,7 @@ const config: Config = {
         black: '#000000',
         mint: '#3fe0d1',
         white: '#ffffff',
+        lightGray: '#D9D9D9',
       },
     },
   },
