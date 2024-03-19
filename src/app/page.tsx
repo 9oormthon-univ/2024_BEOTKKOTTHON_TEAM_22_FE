@@ -2,12 +2,21 @@ import Header from '@/components/common/Header';
 import Main from '@/components/Main/Main';
 import Nav from '@/components/common/Nav';
 
-export default function Home() {
+import { getRankingTips } from '@/apis/getRankingTips';
+
+export default async function Home() {
+  const res = await getRankingTips();
+
   return (
-    <main className="relative min-h-screen">
+    <>
       <Header />
-      <Main />
+      <section className="min-h-screen px-[24px]">
+        <h1 className="pt-[20px] text-[24px] font-semibold">
+          집안일 요정이 알려드려요!
+        </h1>
+        {res && <Main tips={res} />}
+      </section>
       <Nav />
-    </main>
+    </>
   );
 }
