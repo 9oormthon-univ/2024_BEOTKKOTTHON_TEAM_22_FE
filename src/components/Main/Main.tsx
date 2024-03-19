@@ -1,22 +1,40 @@
-import MainCategory from './MainCategory';
-import MainBox from './MainBox';
+'use client';
 
-import { TipsRanking, getRankingTips } from '@/apis/getRankingTips';
+import MainBox from '@/components/Main/MainBox';
+import MainCategory from '@/components/Main/MainCategory';
+import { Response } from '@/apis/getRankingTips';
+import { useState } from 'react';
 
-const Main = async () => {
-  const tipsData = await getRankingTips();
+interface MainProps {
+  tips: Response;
+}
 
-  if (tipsData) {
-    return (
-      <section className="px-[24px]">
-        <h1 className="pt-[20px] text-[24px] font-semibold">랭킹</h1>
-        <MainCategory />
-        <MainBox tipsData={tipsData.response} />
-      </section>
+export default function Main({ tips }: MainProps) {
+  const [currentCode, setCurrentCode] = useState(1);
+
+  const handleClickedCategory = (category_code: number) => {
+    setCurrentCode(category_code);
+  };
+
+  if (tips && currentCode !== 1) {
+    const filteredTips = tips.tips.filter(
+      (tip) => tip.category === currentCode,
     );
-  } else {
-    return null;
-  }
-};
 
-export default Main;
+    if (filteredTips) {
+      return (
+        <>
+          <MainCategory handleClickedCategory={handleClickedCategory} />
+          <MainBox tipsData={filteredTips} />
+        </>
+      );
+    }
+  }
+
+  return (
+    <>
+      <MainCategory handleClickedCategory={handleClickedCategory} />
+      <MainBox tipsData={tips.tips} />
+    </>
+  );
+}
