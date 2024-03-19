@@ -1,15 +1,40 @@
-import React from 'react';
+'use client';
 
-const MainCategory = () => {
+import React, { useEffect, useState } from 'react';
+import MainCategoryItem from './MainCategoryItem';
+
+interface MainCategoryProps {
+  handleClickedCategory: (code_number: number) => void;
+}
+
+const MainCategory = ({ handleClickedCategory }: MainCategoryProps) => {
+  const [selectedCategory, setSelectedCategory] = useState(1);
+
+  const categories = [
+    { code: 1, name: '전체' },
+    { code: 2, name: '먼지' },
+    { code: 3, name: '바닥' },
+    { code: 4, name: '화장실' },
+    { code: 5, name: '유리' },
+    { code: 6, name: '주방' },
+  ];
+
+  const isSelectedCategory = (category_code: number) => {
+    setSelectedCategory(category_code);
+  };
+
   return (
     <>
-      <div className="flex justify-between py-[24px]">
-        <span className="pl-[16px] text-[16px]">전체</span>
-        <span className="text-[16px]">먼지</span>
-        <span className="text-[16px]">바닥</span>
-        <span className="text-[16px]">화장실</span>
-        <span className="text-[16px]">유리</span>
-        <span className="pr-[16px] text-[16px]">주방</span>
+      <div className="flex justify-between px-[16px] py-[24px]">
+        {categories.map((item) => (
+          <MainCategoryItem
+            key={item.code}
+            item={item}
+            isSelected={item.code === selectedCategory}
+            isSelectedCategory={isSelectedCategory}
+            handleClickedCategory={handleClickedCategory}
+          />
+        ))}
       </div>
     </>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import type { TipsRanking } from '@/apis/getRankingTips';
 import MainItem from './MainItem';
@@ -7,8 +9,6 @@ interface MainBoxProps {
 }
 
 const MainBox = ({ tipsData }: MainBoxProps) => {
-  console.log(tipsData);
-
   return (
     <div className="no-scrollbar grid grid-cols-2 gap-[22px] overflow-y-scroll">
       {tipsData.map((item) => (
