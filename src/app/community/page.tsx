@@ -9,7 +9,7 @@ export default async function CommunityPage() {
   const res = await getCommunityItems();
 
   return (
-    <>
+    <div className="min-h-screen">
       <Header title="Q&A" />
       <section className="mx-[23px] my-[20px] flex h-[82px] w-[382px] cursor-pointer items-center justify-between rounded-[12px] bg-[#3ddacb] px-[16px]">
         <div className="flex flex-col ">
@@ -23,8 +23,7 @@ export default async function CommunityPage() {
       <section className="min-h-screen px-[24px]">
         {res && <Community communites={res} />}
       </section>
-
       <Nav />
-    </>
+    </div>
   );
 }
