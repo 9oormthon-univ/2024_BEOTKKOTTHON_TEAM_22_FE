@@ -1,13 +1,11 @@
-import axios from 'axios';
-
 export interface Response {
-  category: string;
   tips: TipsRanking[];
 }
 
 export interface TipsRanking {
   id: number;
-  category: number;
+  category: string;
+  categoryId: number;
   title: string;
   image_url: string;
   nickname: string;
@@ -15,16 +13,20 @@ export interface TipsRanking {
   bookmark_status: boolean;
 }
 
-export const getRankingTips = async () => {
+export const getRankingTips = async (): Promise<Response> => {
   try {
-    const res = await axios.get<Response>(
+    const res = await fetch(
       `https://user1710776235315.requestly.tech/tips/category/1`,
     );
 
-    const { data } = res;
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await res.json();
 
     return data;
   } catch (err) {
-    console.log(err);
+    throw new Error('Failed to fetch getRankingTips');
   }
 };

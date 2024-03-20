@@ -1,7 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
 
 const Nav = () => {
@@ -10,36 +11,52 @@ const Nav = () => {
 
   return (
     <nav className="sticky bottom-0 z-50 bg-[#fff]">
-      <div className="flex h-[82px] w-[100%] w-full items-center justify-between px-[23px]">
+      <div className="flex w-[100%] w-full items-center justify-between px-[23px]">
         <Link
           href="/"
-          className="py-[14px flex cursor-pointer flex-col items-center"
+          className="flex cursor-pointer flex-col items-center py-[14px]"
         >
           <HomeIcon color={isActive('/') ? '#3fe0d1' : '#7d7d7d'} />
-          <span className="text-gray pt-[3px] text-[13px]">홈</span>
+          <span
+            className={`pt-[6px] text-[13px] ${isActive('/') ? 'text-black' : 'text-gray'}`}
+          >
+            홈
+          </span>
         </Link>
         <Link
           href="/like"
-          className="py-[14px flex cursor-pointer flex-col items-center"
+          className="flex cursor-pointer flex-col items-center py-[14px]"
         >
           <BookmarkIcon color={isActive('/like') ? '#3fe0d1' : '#7d7d7d'} />
-          <span className="text-gray pt-[6px] text-[13px]">북마크</span>
+          <span
+            className={`pt-[6px] text-[13px] ${isActive('/like') ? 'text-black' : 'text-gray'}`}
+          >
+            북마크
+          </span>
         </Link>
         <Link
           href="/community"
-          className="py-[14px flex cursor-pointer flex-col items-center"
+          className="flex cursor-pointer flex-col items-center py-[14px]"
         >
           <CommunityIcon
             color={isActive('/community') ? '#3fe0d1' : '#7d7d7d'}
           />
-          <span className="text-gray pt-[6px] text-[13px]">Q&A</span>
+          <span
+            className={`pt-[6px] text-[13px] ${isActive('/community') ? 'text-black' : 'text-gray'}`}
+          >
+            Q&A
+          </span>
         </Link>
         <Link
           href="/mypage"
-          className="py-[14px flex cursor-pointer flex-col items-center"
+          className="flex cursor-pointer flex-col items-center py-[14px]"
         >
           <MypageIcon color={isActive('/mypage') ? '#3fe0d1' : '#7d7d7d'} />
-          <span className="text-gray pt-[6px] text-[13px]">마이페이지</span>
+          <span
+            className={`pt-[6px] text-[13px] ${isActive('/mypage') ? 'text-black' : 'text-gray'}`}
+          >
+            마이페이지
+          </span>
         </Link>
       </div>
     </nav>

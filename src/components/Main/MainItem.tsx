@@ -42,7 +42,7 @@ const MainItem = ({ item }: MainItemProps) => {
           className="absolute right-[16px] top-[16px] z-50 cursor-pointer"
         >
           {status ? (
-            <BookmarkFilledColorIcon size={18} height={24} />
+            <BookmarkFilledColorIcon size={18} height={24} color="#3FE1D1" />
           ) : (
             <BookmarkFilledColorIcon size={18} height={24} />
           )}
@@ -56,7 +56,9 @@ const MainItem = ({ item }: MainItemProps) => {
           <span className="text-[14px]">{nickname}</span>
           <div className="flex items-center gap-[4px]">
             <BookmarkFilledColorIcon />
-            <span className="text-[12px]">{bookmark_counts}</span>
+            <span className="text-[12px]">
+              {bookmark_counts > 99 ? '99+' : bookmark_counts}
+            </span>
           </div>
         </div>
       </div>
