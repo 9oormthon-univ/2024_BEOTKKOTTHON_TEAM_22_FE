@@ -7,7 +7,12 @@ import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
 
 const Nav = () => {
   const pathname = usePathname();
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string): boolean => {
+    const currentPath = pathname;
+    const escapedPath = path.replace(/\//g, '\\/').replace(/\*/g, '.*'); // 정규식 특수 문자를 이스케이프합니다.
+    const regex = new RegExp(`^${escapedPath}(\/[a-zA-Z0-9]+)?\/?$`);
+    return regex.test(currentPath);
+  };
 
   return (
     <nav className="sticky bottom-0 z-50 bg-[#fff]">
