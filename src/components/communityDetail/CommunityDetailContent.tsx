@@ -7,6 +7,7 @@ import {
   ContentCommentIcon,
 } from '../common/Icons';
 import type { CommunityDetail } from '@/apis/getCommunityDetail';
+import { timeFormatDate } from '@/utils/timeFormatChange';
 
 interface CommunityDetailContentProps {
   contentData: CommunityDetail;
@@ -26,6 +27,8 @@ const CommunityDetailContent = ({
   } = contentData;
 
   const [status, setStauts] = useState<boolean>(bookmark_status);
+
+  const time = timeFormatDate(timestamp);
 
   const onClickBookmark = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -65,7 +68,7 @@ const CommunityDetailContent = ({
           </div>
         </div>
         <div>
-          <span className="text-[14px] text-[#8D8D8D]">{timestamp}</span>
+          <span className="text-[14px] text-[#8D8D8D]">{time}</span>
         </div>
       </div>
     </section>
