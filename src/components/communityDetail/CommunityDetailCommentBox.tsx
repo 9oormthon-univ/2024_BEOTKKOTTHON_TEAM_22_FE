@@ -14,7 +14,7 @@ const CommunityDetailCommentBox = ({
   const { category } = commentData;
 
   return (
-    <section className="min-h-screen bg-white px-[24px]">
+    <section className="min-h-[80vh] bg-white px-[24px]">
       {category === '질문' ? (
         <div className=" py-[20px]">
           <span className="font-semilbold text-[14px] text-[#d9d9d9]">
