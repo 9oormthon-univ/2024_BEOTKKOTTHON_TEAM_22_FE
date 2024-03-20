@@ -1,5 +1,5 @@
 import Header from '@/components/common/Header';
-import Main from '@/components/Main/Main';
+import Main from '@/components/main/Main';
 import Nav from '@/components/common/Nav';
 
 import { getRankingTips } from '@/apis/getRankingTips';
