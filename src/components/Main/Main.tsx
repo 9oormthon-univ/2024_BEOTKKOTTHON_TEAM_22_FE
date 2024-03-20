@@ -1,7 +1,7 @@
 'use client';
 
-import MainBox from '@/components/Main/MainBox';
-import MainCategory from '@/components/Main/MainCategory';
+import MainBox from '@/components/main/MainBox';
+import MainCategory from '@/components/main/MainCategory';
 import { Response } from '@/apis/getRankingTips';
 import { useState } from 'react';
 
@@ -18,7 +18,7 @@ export default function Main({ tips }: MainProps) {
 
   if (tips && currentCode !== 1) {
     const filteredTips = tips.tips.filter(
-      (tip) => tip.category === currentCode,
+      (tip) => tip.categoryId === currentCode,
     );
 
     if (filteredTips) {
