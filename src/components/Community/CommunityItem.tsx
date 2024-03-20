@@ -2,6 +2,7 @@
 
 import React from 'react';
 import type { Community } from '@/apis/getCommunityItems';
+import { timeFormatBefore } from '@/utils/timeFormatChange';
 import { BookmarkFilledColorIcon, CommentIcon } from '../common/Icons';
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +19,8 @@ const CommunityItem = ({ item }: CommunityItemProps) => {
   const onClickItem = (itemId: number) => {
     router.push(`/community/${itemId}`);
   };
+
+  const time = timeFormatBefore(timestamp);
 
   return (
     <div
@@ -52,7 +55,7 @@ const CommunityItem = ({ item }: CommunityItemProps) => {
         )}
 
         <div>
-          <span className="text-[14px]">{timestamp}</span>
+          <span className="text-[14px]">{time}</span>
         </div>
       </div>
     </div>
