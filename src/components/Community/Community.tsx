@@ -1,7 +1,19 @@
 import React from 'react';
 
-const Community = () => {
-  return <div>Community</div>;
+import CommunityBox from './CommunityBox';
+
+import type { Response } from '@/apis/getCommunityItems';
+
+interface CommunityProps {
+  communites: Response;
+}
+
+const Community = ({ communites }: CommunityProps) => {
+  return (
+    <>
+      <CommunityBox communites={communites.response} />
+    </>
+  );
 };
 
 export default Community;
