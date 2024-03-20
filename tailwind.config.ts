@@ -14,6 +14,7 @@ const config: Config = {
         mint: '#3fe0d1',
         white: '#ffffff',
         lightGray: '#D9D9D9',
+        darkGray: '#8D8D8D',
       },
     },
   },
