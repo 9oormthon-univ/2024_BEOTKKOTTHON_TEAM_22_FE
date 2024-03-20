@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import type { CommuniyComments } from '@/apis/getCommunityDetail';
+import { timeFormatBefore } from '@/utils/timeFormatChange';
 
 interface CommunityDetailCommentItemProps {
   item: CommuniyComments;
@@ -13,6 +14,8 @@ const CommunityDetailCommentItem = ({
   isLastItem,
 }: CommunityDetailCommentItemProps) => {
   const { content, timestamp, nickname, profile_image } = item;
+
+  const time = timeFormatBefore(timestamp);
 
   const isLastContainer = isLastItem
     ? 'flex items-center py-[23px]'
@@ -38,7 +41,7 @@ const CommunityDetailCommentItem = ({
       <div className="flex flex-col justify-center">
         <div className="flex items-end gap-[6px] pb-[4px]">
           <span className="text-[18px] font-semibold">{nickname}</span>
-          <span className="text-[14px] text-[#8d8d8d]">{timestamp}</span>
+          <span className="text-[14px] text-[#8d8d8d]">{time}</span>
         </div>
         <div>
           <p className="text-[16px]">{content}</p>
