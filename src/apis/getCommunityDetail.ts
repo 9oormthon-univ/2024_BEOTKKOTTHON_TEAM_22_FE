@@ -36,6 +36,7 @@ export const getCommunityDetail = async (
   try {
     const res = await fetch(
       `https://user1710776235315.requestly.tech/community/detail/${detailId}`,
+      { next: { tags: ['communityDetail'] } },
     );
 
     if (!res.ok) {
