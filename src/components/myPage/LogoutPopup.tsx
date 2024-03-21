@@ -13,14 +13,12 @@ export default function LogoutPopup({onCancel, onConfirm}:LogoutPopupProps) {
           <div className="flex-auto mb-[33px] flex justify-center items-center gap-[20px] ">
             <button
               className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
-              onClick={onCancel}
-            >
+              onClick={onCancel}>
               취소
             </button>
             <button
               className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
-              onClick={onConfirm}
-            >
+              onClick={onConfirm}>
               확인
             </button>
           </div>
