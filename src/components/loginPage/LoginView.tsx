@@ -4,6 +4,7 @@ import {XIcon} from "@/components/common/Icons";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
+import { setAccessToken } from '@/utils/auth';
 
 export default function LoginView() {
   const router = useRouter()
@@ -13,15 +14,12 @@ export default function LoginView() {
     password: '',
   });
 
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       email: value,
     }));
-    console.log(formData)
-
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +28,6 @@ export default function LoginView() {
       ...prevFormData,
       password: value,
     }));
-    console.log(formData)
-
   };
 
   const handleSubmit = async ()=>{
@@ -39,16 +35,20 @@ export default function LoginView() {
       if (formData.email && formData.password ){
         const response = await axios.post('/user/login', formData);
         setIsSuccess(true)
+        const { accessToken } = response.data; // 서버로부터 받은 accessToken
+        console.log('response.data:',response.data)
+        setAccessToken(accessToken);
+        console.log('accessToken:',accessToken)
         alert('로그인 성공!')
-        console.log('성공',formData)
       }else {
         setIsSuccess(false)
-        alert('다시 입력해주세요!')
+        alert('이메일과 비밀번호를 다시 입력해주세요!')
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('로그인 에러:', error);
     }
   };
+
   useEffect(() => {
     if (isSuccess){
       router.push('/');
@@ -68,6 +68,7 @@ export default function LoginView() {
       <div className={'mt-16 mb-8'}>
         <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='text'
+               value={formData.email}
                id={'email'}
                placeholder={'  이메일을 입력해주세요.'}
                onChange={handleEmailChange}
@@ -76,6 +77,7 @@ export default function LoginView() {
       <div className={'mt-8 mb-8'}>
         <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='password'
+               value={formData.password}
                id={'password'}
                placeholder={'  비밀번호를 입력해주세요.'}
                onChange={handlePasswordChange}
