@@ -1,13 +1,29 @@
 'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
+import { usePathname, useRouter } from 'next/navigation';
 import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
+import { getAccessToken } from '@/utils/auth';
+import { useState } from 'react';
+import LoginPopup from '@/components/common/LoginPopup';
+
 
 const Nav = () => {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
+
+  const router = useRouter();
+  const [showPopup, setShowPopup] = useState(false); // 팝업 상태 state
+
+  const handleLinkClick = () => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      // access_token이 있는 경우 해당 URL로 이동
+      router.push('/mypage');
+    } else {
+      // access_token이 없는 경우 팝업 컴포넌트 띄우기
+      setShowPopup(true);
+    }
+  };
 
   return (
     <nav className="sticky bottom-0 z-50 bg-[#fff]">
@@ -47,9 +63,10 @@ const Nav = () => {
             Q&A
           </span>
         </Link>
-        <Link
-          href="/mypage"
+
+        <div
           className="flex cursor-pointer flex-col items-center py-[14px]"
+          onClick={handleLinkClick}
         >
           <MypageIcon color={isActive('/mypage') ? '#3fe0d1' : '#7d7d7d'} />
           <span
@@ -57,7 +74,8 @@ const Nav = () => {
           >
             마이페이지
           </span>
-        </Link>
+        </div>
+        {showPopup && <LoginPopup/>}
       </div>
     </nav>
   );
