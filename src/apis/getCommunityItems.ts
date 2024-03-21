@@ -16,6 +16,7 @@ export const getCommunityItems = async (): Promise<Response> => {
   try {
     const res = await fetch(
       `https://user1710776235315.requestly.tech/community/items`,
+      { next: { tags: ['communityItems'] } },
     );
 
     if (!res.ok) {
