@@ -17,6 +17,7 @@ export const getRankingTips = async (): Promise<Response> => {
   try {
     const res = await fetch(
       `https://user1710776235315.requestly.tech/tips/category/1`,
+      { next: { tags: ['rankingTips'] } },
     );
 
     if (!res.ok) {
