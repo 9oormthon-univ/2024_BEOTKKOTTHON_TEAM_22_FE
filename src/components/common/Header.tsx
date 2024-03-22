@@ -19,7 +19,9 @@ const Header = ({ title }: HeaderProps) => {
       )}
 
       <div className="flex items-center gap-[20px]">
-        <SearchIcon />
+        <Link href={'/search'}>
+          <SearchIcon />
+        </Link>
         <AlertIcon />
       </div>
     </header>
