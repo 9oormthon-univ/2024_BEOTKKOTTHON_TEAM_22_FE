@@ -7,7 +7,7 @@ export interface CommunityDetail {
   category: string;
   title: string;
   content: string;
-  image_url: string;
+  image_url: string[];
   bookmark_status: boolean;
   bookmark_count: number;
   comment_count: number;
@@ -31,7 +31,7 @@ export interface CommuniyComments {
 }
 
 export const getCommunityDetail = async (
-  detailId: number = 3,
+  detailId: number = 2,
 ): Promise<Response> => {
   try {
     const res = await fetch(
