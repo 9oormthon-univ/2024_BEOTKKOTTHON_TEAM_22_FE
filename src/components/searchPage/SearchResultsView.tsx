@@ -33,9 +33,12 @@ const testData = [
   }
 ]
 
+interface SearchResultProps {
+  searchKeyword: string;
+}
 
 
-export default function SearchResultsView() {
+export default function SearchResultsView({searchKeyword}:SearchResultProps) {
 
   return (
     <>
@@ -45,18 +48,21 @@ export default function SearchResultsView() {
             <div className={'my-auto px-[8px]'}>
               <SearchIcon />
             </div>
-            <input type={'text'}
-                   placeholder={'키워드'} className={'my-auto outline-none w-full'} />
+            {/*<input type={'text'}*/}
+            {/*       placeholder={searchKeyword}*/}
+            {/*       className={'my-auto outline-none w-full'} />*/}
+            <div className={'my-auto outline-none w-full'}>{searchKeyword}</div>
           </div>
-            <div className={'m-auto'}>
-              <Link href={'/search'}>
-                <p>취소</p>
-              </Link>
-            </div>
+          <div className={'m-auto'}>
+            <Link href={'/search'}>
+              <p>취소</p>
+            </Link>
+          </div>
+
         </div>
         <div className={' font-semibold text-[24px] '}>
           <div className={'mb-[20px]'}>추천상품</div>
-          <div className={'flex items-center mb-[28px] max-h-[190x] h-[190px] justify-between gap-[10px] overflow-x-scroll scrollbar-hide'}>
+          <div className={'flex mb-[28px] justify-between gap-[10px] overflow-x-scroll scrollbar-hide'}>
             {testData.map(item => (
               <div key={item.id}>
                 <RecommendCard img={item.img} price={item.price} product={item.product} store={item.store} url={item.url} />
