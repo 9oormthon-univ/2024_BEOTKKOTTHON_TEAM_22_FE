@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
-import { getAccessToken } from '@/utils/auth';
+import { getAccessToken, getEmailFromAccessToken } from '@/utils/auth';
 import { useState } from 'react';
 import LoginPopup from '@/components/common/LoginPopup';
 
@@ -21,9 +21,12 @@ const Nav = () => {
 
   const handleLinkClick = () => {
     const accessToken = getAccessToken();
+    console.log('accessToken',accessToken)
     if (accessToken) {
+      console.log('accessToken',accessToken)
+      const userEmail = getEmailFromAccessToken();
       // access_token이 있는 경우 해당 URL로 이동
-      router.push('/mypage');
+      router.push(`/mypage/${userEmail}`);
     } else {
       // access_token이 없는 경우 팝업 컴포넌트 띄우기
       setShowPopup(true);

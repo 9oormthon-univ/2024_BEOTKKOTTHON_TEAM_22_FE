@@ -3,8 +3,11 @@ import { SearchIcon } from '@/components/common/Icons';
 import BackHeader from '@/components/common/BackHeader';
 import Link from 'next/link';
 import { useState } from 'react';
+import { router } from 'next/client';
+import { useRouter } from 'next/navigation';
 
 export default function SearchPageView() {
+  const router = useRouter()
   const [inputValue, setInputValue] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +15,17 @@ export default function SearchPageView() {
     setInputValue(value);
   };
 
+  const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleInputSubmit();
+    }
+  };
 
+  const handleInputSubmit = () => {
+    router.push(`/search/${inputValue}`)
+    //api 연동
+
+  };
 
   return (
     <>
@@ -26,6 +39,7 @@ export default function SearchPageView() {
           <input type={'text'}
                  value={inputValue}
                  onChange={handleChange}
+                 onKeyDown={handleInputKeyPress}
                  placeholder={' 검색어를 입력해주세요'}
                  className={'m-[10px] w-full outline-none'}/>
           <div className={'m-auto py-[20px] px-[15px]'}>
