@@ -1,9 +1,11 @@
 'use client';
-
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
+import { usePathname, useRouter } from 'next/navigation';
 import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
+import { getAccessToken } from '@/utils/auth';
+import { useState } from 'react';
+import LoginPopup from '@/components/common/LoginPopup';
+
 
 const Nav = () => {
   const pathname = usePathname();
@@ -12,6 +14,20 @@ const Nav = () => {
     const escapedPath = path.replace(/\//g, '\\/').replace(/\*/g, '.*'); // 정규식 특수 문자를 이스케이프합니다.
     const regex = new RegExp(`^${escapedPath}(\/[a-zA-Z0-9]+)?\/?$`);
     return regex.test(currentPath);
+  };
+
+  const router = useRouter();
+  const [showPopup, setShowPopup] = useState(false); // 팝업 상태 state
+
+  const handleLinkClick = () => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      // access_token이 있는 경우 해당 URL로 이동
+      router.push('/mypage');
+    } else {
+      // access_token이 없는 경우 팝업 컴포넌트 띄우기
+      setShowPopup(true);
+    }
   };
 
   return (
@@ -52,9 +68,10 @@ const Nav = () => {
             Q&A
           </span>
         </Link>
-        <Link
-          href="/mypage"
+
+        <div
           className="flex cursor-pointer flex-col items-center py-[14px]"
+          onClick={handleLinkClick}
         >
           <MypageIcon color={isActive('/mypage') ? '#3fe0d1' : '#7d7d7d'} />
           <span
@@ -62,7 +79,8 @@ const Nav = () => {
           >
             마이페이지
           </span>
-        </Link>
+        </div>
+        {showPopup && <LoginPopup/>}
       </div>
     </nav>
   );

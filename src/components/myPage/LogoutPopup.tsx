@@ -4,6 +4,8 @@ interface LogoutPopupProps {
 }
 export default function LogoutPopup({onCancel, onConfirm}:LogoutPopupProps) {
 
+
+
   return (
     <>
       <div className=" fixed inset-0 text-center flex justify-center items-center">
@@ -12,15 +14,13 @@ export default function LogoutPopup({onCancel, onConfirm}:LogoutPopupProps) {
           <p className='mt-[14px] mb-[24px]'>로그아웃 하시겠습니까?</p>
           <div className="flex-auto mb-[33px] flex justify-center items-center gap-[20px] ">
             <button
-              className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
-              onClick={onCancel}
-            >
+              className="w-[108px] h-[56px] border-[1px] border-lightGray text-black rounded-[12px] "
+              onClick={onCancel}>
               취소
             </button>
             <button
-              className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
-              onClick={onConfirm}
-            >
+              className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] border-lightGray"
+              onClick={onConfirm}>
               확인
             </button>
           </div>

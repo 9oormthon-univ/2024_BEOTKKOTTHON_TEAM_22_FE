@@ -1,11 +1,29 @@
 'use client';
 import { AddIcon, TodoMenuIcon } from '@/components/common/Icons';
 import CheckListEdit from '@/components/myPage/CheckListEdit';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function CheckList() {
   const [showPopup, setShowPopup] = useState(false);
-  const [isAdd, setIsAdd] = useState(false);
+  const [isAdd, setIsAdd]=useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleInputSubmit();
+    }
+  };
+  const handleInputSubmit = () => {
+    if (showPopup){
+      setShowPopup(false)
+    }
+    setIsAdd(!isAdd)
+  };
+
   const handleShowPopup = () => {
     setShowPopup(!showPopup);
   };
@@ -13,6 +31,13 @@ export default function CheckList() {
   const handleAddList = () => {
     setIsAdd(!isAdd);
   };
+
+  const handleDeleteList =()=>{
+
+  }
+
+  useEffect(() => {
+  }, [showPopup]);
 
   return (
     <>
@@ -30,17 +55,14 @@ export default function CheckList() {
         >
           <input
             type={'checkbox'}
-            className={
-              'mx-[16px] my-[20px] size-[24px] appearance-none rounded-[4px] bg-lightGray checked:border-transparent checked:bg-mint'
-            }
-          />
-          {isAdd ? (
-            <input type={'text'} className={'flex-1 '} />
-          ) : (
-            <div className={'w-[100%] flex-1 py-5 '}>
-              집 가고 싶어 자고 싶어
-            </div>
-          )}
+            className={'my-[20px] mx-[16px] size-[24px] appearance-none rounded-[4px] bg-lightGray checked:bg-mint checked:border-transparent'} />
+          {isAdd ?
+            <input type={'text'}
+                   value={inputValue}
+                   onChange={handleInputChange}
+                   onKeyDown={handleInputKeyPress}
+                   className={'flex-1 w-[100%] overflow-wrap'} />
+            : <div className={'flex-1 w-[100%] py-5 overflow-wrap '}>{inputValue}</div>}
 
           <div
             onClick={handleShowPopup}
@@ -49,8 +71,11 @@ export default function CheckList() {
             <TodoMenuIcon />
           </div>
         </div>
-        {showPopup && <CheckListEdit onConfirm={handleShowPopup} />}
+        {showPopup && (
+          <CheckListEdit onEdit={handleInputSubmit}  />
+        )}
       </div>
+      <div className={'h-16'}></div>
     </>
   );
 }
