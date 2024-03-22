@@ -53,11 +53,10 @@ export default function SearchResultsView() {
                 <p>취소</p>
               </Link>
             </div>
-
         </div>
         <div className={' font-semibold text-[24px] '}>
           <div className={'mb-[20px]'}>추천상품</div>
-          <div className={'flex mb-[28px] justify-between gap-[10px] overflow-x-scroll scrollbar-hide'}>
+          <div className={'flex items-center mb-[28px] max-h-[190x] h-[190px] justify-between gap-[10px] overflow-x-scroll scrollbar-hide'}>
             {testData.map(item => (
               <div key={item.id}>
                 <RecommendCard img={item.img} price={item.price} product={item.product} store={item.store} url={item.url} />

@@ -13,7 +13,7 @@ export default function RecommendCard({img,store, product, price, url}:Props) {
   return (
     <>
       <Link href={url}>
-        <div className={'rounded-[12px] w-[136px] h-[184px] bg-white shadow-md '}>
+        <div className={'rounded-[12px] w-[136px] max-h-[184px] bg-white shadow-md '}>
           <Image
             src={img}
             alt={'제품사진'}
