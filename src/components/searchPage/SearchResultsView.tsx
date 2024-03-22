@@ -1,10 +1,9 @@
 'use client';
 
 import { SearchIcon } from '@/components/common/Icons';
-import RecommendCard from '@/components/searchPage/RecommendCard';
+import RecommendCard from '@/components/common/RecommendCard';
 import Link from 'next/link';
 import Nav from '@/components/common/Nav';
-import { Router } from 'next/router';
 
 const testData = [
   {

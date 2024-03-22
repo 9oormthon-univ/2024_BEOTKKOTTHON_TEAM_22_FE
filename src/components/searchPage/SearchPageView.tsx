@@ -2,7 +2,6 @@
 import { SearchIcon } from '@/components/common/Icons';
 import BackHeader from '@/components/common/BackHeader';
 import Link from 'next/link';
-import { id } from 'postcss-selector-parser';
 import { useState } from 'react';
 
 export default function SearchPageView() {
