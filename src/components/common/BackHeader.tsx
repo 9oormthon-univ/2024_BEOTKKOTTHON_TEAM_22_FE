@@ -13,7 +13,7 @@ const BackHeader = () => {
   };
 
   return (
-    <header className="px-[24px] py-[32px]">
+    <header className="py-[32px] xs:px-[12px] md:px-[18px] lg:px-[24px]">
       <div
         onClick={onClickBack}
         className="cursor-pointer"

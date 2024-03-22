@@ -15,8 +15,8 @@ const Nav = () => {
   };
 
   return (
-    <nav className="sticky bottom-0 z-50 bg-[#fff]">
-      <div className="flex w-[100%] w-full items-center justify-between px-[23px]">
+    <nav className="sticky bottom-0 left-0 right-0 z-50 bg-[#fff]">
+      <div className="flex w-[100%] w-full items-center justify-between px-[30px] md:px-[23px]">
         <Link
           href="/"
           className="flex cursor-pointer flex-col items-center py-[14px]"

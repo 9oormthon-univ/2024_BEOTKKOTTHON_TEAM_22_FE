@@ -25,7 +25,7 @@ const MainCategory = ({ handleClickedCategory }: MainCategoryProps) => {
 
   return (
     <>
-      <div className="flex justify-between px-[16px] py-[24px]">
+      <div className="xs:px-[24px] xs:px-[26px] flex justify-between py-[24px] sm:px-[32px] md:px-[40px]">
         {categories.map((item) => (
           <MainCategoryItem
             key={item.code}

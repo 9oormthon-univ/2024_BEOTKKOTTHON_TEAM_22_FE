@@ -7,7 +7,7 @@ const page = () => {
   return (
     <section>
       <BackHeader />
-      <div className="px-[24px] pb-[24px]">
+      <div className="pb-[24px] xs:px-[12px] md:px-[18px] lg:px-[24px]">
         <span className="text-[24px] font-semibold">질문하기</span>
       </div>
       <CommunityQuestionForm />
