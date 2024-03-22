@@ -2,23 +2,23 @@
 export const UserImageList =[
   {
     image : '/images/인간.svg',
-    grade : '인간'
+    grade : 'Level.1'
   },
   {
     image : '/images/고블린.svg',
-    grade : '고블린'
+    grade : 'Level.2'
   },
   {
     image : '/images/도비.svg',
-    grade : '도비'
+    grade : 'Level.3'
   },
   {
     image : '/images/요정.svg',
-    grade : '요정'
+    grade : 'Level.4'
   }
   ,{
     image : '/images/엘프.svg',
-    grade : '엘프'
+    grade : 'Level.5'
   },
   {
     image : '/images/요정왕.svg',
