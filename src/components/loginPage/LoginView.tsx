@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import { setAccessToken } from '@/utils/auth';
+import Link from 'next/link';
 
 export default function LoginView() {
   const router = useRouter()
@@ -65,7 +66,7 @@ export default function LoginView() {
       <div className={'mt-32 flex justify-center'}>
         <Image src={'/images/Logo.svg'} alt={'로그인 로고'} width={116} height={116}/>
       </div>
-      <div className={'mt-16 mb-8'}>
+      <div className={'mt-[36px] mb-[16px]'}>
         <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='text'
                value={formData.email}
@@ -74,7 +75,7 @@ export default function LoginView() {
                onChange={handleEmailChange}
         />
       </div>
-      <div className={'mt-8 mb-8'}>
+      <div className={'mb-[28px]'}>
         <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='password'
                value={formData.password}
@@ -83,12 +84,18 @@ export default function LoginView() {
                onChange={handlePasswordChange}
         />
       </div>
-      <div className={'mb-8'}>
+      <div className={'mb-[20px]'}>
         <button type={'submit'}
                 onClick={handleSubmit}
-                className={'w-[100%] text-white bg-mint rounded-[12px] h-16 hover:bg-lightGray'}>
+                className={'w-[100%] text-white bg-mint rounded-[12px] h-16 hover:bg-darkMint'}>
           로그인
         </button>
+      </div>
+      <div className={'flex justify-center text-[16px]'}>
+        <p className={'text-darkGray '}>아직 회원이 아니신가요?</p>
+        <Link href={'join'}>
+          <p className={'text-mint font-semibold pl-1 hover:text-darkmint'}>회원가입</p>
+        </Link>
       </div>
     </div>
 

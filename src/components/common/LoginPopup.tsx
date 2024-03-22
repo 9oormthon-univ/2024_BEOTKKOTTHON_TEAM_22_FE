@@ -24,13 +24,13 @@ export default function LoginPopup() {
             <div className="flex-auto mb-[28px] flex justify-center items-center gap-[20px]">
               <button
                 onClick={handleCancle}
-                className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
+                className="w-[108px] h-[56px] border-[1px] border-lightGray text-black rounded-[12px] "
               >
                 취소
               </button>
-              <Link href={'/join'}>
+              <Link href={'/login'}>
                 <button
-                  className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] hover:bg-white hover:text-black hover:border-[1px] border-lightGray"
+                  className="w-[108px] h-[56px] bg-mint text-white rounded-[12px] border-lightGray"
                 >
                   확인
                 </button>

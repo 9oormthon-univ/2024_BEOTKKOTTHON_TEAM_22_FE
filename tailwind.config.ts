@@ -11,14 +11,16 @@ const config: Config = {
       colors: {
         gray: '#7d7d7d',
         black: '#000000',
-        mint: '#3fe0d1',
+        mint: '#3DDACB',
         white: '#ffffff',
         lightGray: '#D9D9D9',
         darkGray: '#8D8D8D',
+        darkMint: '#31B0A4',
+        dividing_line: '#F2F2F2',
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 
 export default config;
