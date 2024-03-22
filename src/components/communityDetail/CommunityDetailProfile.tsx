@@ -13,7 +13,7 @@ const CommunityDetailProfile = ({
   const { profile_image, nickname, grade } = profileData.user;
 
   return (
-    <section className="mb-[12px] flex items-center bg-white px-[24px] py-[20px]">
+    <section className="xs:px-[24px] mb-[12px] flex items-center bg-white py-[20px]">
       <div className="pr-[14px]">
         <Image
           src={profile_image}

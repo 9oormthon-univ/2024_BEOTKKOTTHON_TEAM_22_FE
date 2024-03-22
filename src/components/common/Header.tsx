@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header = ({ title }: HeaderProps) => {
   return (
-    <header className="flex h-[68px] w-[100%] items-center justify-between px-[24px]">
+    <header className="xs:px-[12px] flex h-[68px] w-[100%] items-center justify-between px-[24px] sm:px-[14px] md:px-[24px]">
       <Link href="/" className="cursor-pointer">
         <LogoIcon />
       </Link>

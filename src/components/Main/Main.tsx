@@ -25,7 +25,9 @@ export default function Main({ tips }: MainProps) {
       return (
         <>
           <MainCategory handleClickedCategory={handleClickedCategory} />
-          <MainBox tipsData={filteredTips} />
+          <div className="flex justify-center">
+            <MainBox tipsData={filteredTips} />
+          </div>
         </>
       );
     }
@@ -34,7 +36,9 @@ export default function Main({ tips }: MainProps) {
   return (
     <>
       <MainCategory handleClickedCategory={handleClickedCategory} />
-      <MainBox tipsData={tips.tips} />
+      <div className="flex justify-center">
+        <MainBox tipsData={tips.tips} />
+      </div>
     </>
   );
 }

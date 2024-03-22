@@ -1,6 +1,5 @@
 import React from 'react';
 
-import BackHeader from '@/components/common/BackHeader';
 import CommunityDetail from '@/components/communityDetail/CommunityDetail';
 import Nav from '@/components/common/Nav';
 
@@ -18,10 +17,11 @@ export default async function DetailPage({ params }: DetailPageProps) {
   const detailData = await getCommunityDetail(communityId);
 
   return (
-    <section className="min-h-screen">
-      <BackHeader />
-      {detailData && <CommunityDetail detailData={detailData} />}
+    <>
+      <section>
+        {detailData && <CommunityDetail detailData={detailData} />}
+      </section>
       <Nav />
-    </section>
+    </>
   );
 }

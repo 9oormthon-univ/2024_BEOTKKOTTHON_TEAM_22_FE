@@ -21,7 +21,7 @@ const MainItem = ({ item }: MainItemProps) => {
   };
 
   return (
-    <div className="cursor-pointer flex-col">
+    <div className="xs:w-[165px] cursor-pointer flex-col sm:w-[170px] md:w-[180px]">
       <div className="relative pb-[8px]">
         <Image
           src={image_url}
@@ -35,11 +35,14 @@ const MainItem = ({ item }: MainItemProps) => {
             objectFit: 'cover',
             borderRadius: '10px',
           }}
-          className="rounded-3 h-[180px] min-w-[180px]"
+          className="
+            rounded-3 xs:h-[165px] xs:min-h-[165px] xs:w-[165px] xs:min-w-[165px] sm:h-[170px] sm:min-h-[170px] sm:w-[170px] sm:min-w-[170px]
+            md:h-[180px] md:min-h-[180px] md:w-[180px] md:min-w-[180px]
+            "
         />
         <div
           onClick={onClickBookmark}
-          className="absolute right-[16px] top-[16px] z-50 cursor-pointer"
+          className="xs:right-[12px] xs:top-[10px] absolute right-[24px] top-[12px] z-50 cursor-pointer  sm:right-[12px] sm:top-[12px]"
         >
           {status ? (
             <BookmarkFilledColorIcon size={18} height={24} color="#3FE1D1" />

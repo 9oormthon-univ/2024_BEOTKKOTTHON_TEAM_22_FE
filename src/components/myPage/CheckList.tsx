@@ -3,8 +3,6 @@ import { AddIcon, TodoMenuIcon } from '@/components/common/Icons';
 import CheckListEdit from '@/components/myPage/CheckListEdit';
 import { useEffect, useState } from 'react';
 
-
-
 export default function CheckList() {
   const [showPopup, setShowPopup] = useState(false);
   const [isAdd, setIsAdd]=useState(false);
@@ -30,9 +28,9 @@ export default function CheckList() {
     setShowPopup(!showPopup);
   };
 
-  const handleAddList =()=>{
-    setIsAdd(!isAdd)
-  }
+  const handleAddList = () => {
+    setIsAdd(!isAdd);
+  };
 
   const handleDeleteList =()=>{
 
@@ -43,16 +41,18 @@ export default function CheckList() {
 
   return (
     <>
-      <div className={'mt-[52px] mb-[20px] flex'}>
-        <div className={'flex-1 font-semibold text-[24px]'}>
-          체크 리스트
-        </div>
+      <div className={'mb-[20px] mt-[52px] flex'}>
+        <div className={'flex-1 text-[24px] font-semibold'}>체크 리스트</div>
         <button onClick={handleAddList} className={'mr-[16px]'}>
           <AddIcon />
         </button>
       </div>
       <div className={'mb-[12px] h-[64px] '}>
-        <div className={'flex w-full h-[64px] rounded-[12px] border-[1px] border-mint '}>
+        <div
+          className={
+            'flex h-[64px] w-full rounded-[12px] border-[1px] border-mint '
+          }
+        >
           <input
             type={'checkbox'}
             className={'my-[20px] mx-[16px] size-[24px] appearance-none rounded-[4px] bg-lightGray checked:bg-mint checked:border-transparent'} />
@@ -64,7 +64,10 @@ export default function CheckList() {
                    className={'flex-1 w-[100%] overflow-wrap'} />
             : <div className={'flex-1 w-[100%] py-5 overflow-wrap '}>{inputValue}</div>}
 
-          <div onClick={handleShowPopup} className={'my-[24px] mx-[16px] justify-center'}>
+          <div
+            onClick={handleShowPopup}
+            className={'mx-[16px] my-[24px] justify-center'}
+          >
             <TodoMenuIcon />
           </div>
         </div>
@@ -73,8 +76,6 @@ export default function CheckList() {
         )}
       </div>
       <div className={'h-16'}></div>
-
     </>
-
   );
 }
