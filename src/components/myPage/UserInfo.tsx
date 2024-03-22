@@ -8,12 +8,7 @@ import Image from 'next/image';
 import { removeAccessToken } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
 
-const user  = [
-  {
-    nickname: 'test',
-    grade:'요정'
-  }
-]
+
 interface Props {
   nickname: string,
   grade : string

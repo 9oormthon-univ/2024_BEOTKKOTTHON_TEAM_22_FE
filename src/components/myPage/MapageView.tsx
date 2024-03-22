@@ -6,7 +6,6 @@ import Nav from '@/components/common/Nav';
 import UserPoint from '@/components/myPage/UserPoint';
 import CheckList from '@/components/myPage/CheckList';
 import axios from 'axios';
-import LoginPopup from '@/components/common/LoginPopup';
 
 interface UserData {
   nickname: string;
@@ -19,7 +18,6 @@ export default function MypageView() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
-    // API 호출
     axios.get('/mypage')
       .then(response => {
         const responseData = response.data.response;
@@ -39,9 +37,9 @@ export default function MypageView() {
           <UserInfo nickname={userData.nickname} grade={userData.grade}/>
           <UserPoint point={userData.totalpoint} />
           <CheckList/>
-          <Nav />
         </div>
       )}
+      <Nav/>
     </>
 
   );

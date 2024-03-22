@@ -20,6 +20,9 @@ export default function CheckList() {
     }
   };
   const handleInputSubmit = () => {
+    if (showPopup){
+      setShowPopup(false)
+    }
     setIsAdd(!isAdd)
   };
 
@@ -31,8 +34,12 @@ export default function CheckList() {
     setIsAdd(!isAdd)
   }
 
+  const handleDeleteList =()=>{
+
+  }
+
   useEffect(() => {
-  }, []);
+  }, [showPopup]);
 
   return (
     <>
@@ -62,10 +69,10 @@ export default function CheckList() {
           </div>
         </div>
         {showPopup && (
-          <CheckListEdit onConfirm={handleShowPopup} />
+          <CheckListEdit onEdit={handleInputSubmit}  />
         )}
       </div>
-
+      <div className={'h-16'}></div>
 
     </>
 
