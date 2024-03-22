@@ -77,7 +77,7 @@ export default function JoinView() {
       <div className={'pt-32'}>
         <button type={'submit'}
                 onClick={handleSubmit}
-                className={'w-[100%] text-white bg-mint h-[82px] hover:bg-lightGray'}>
+                className={'w-[100%] text-[20px] text-white font-semibold bg-mint h-[82px] hover:bg-darkMint'}>
           회원가입하기
         </button>
       </div>
