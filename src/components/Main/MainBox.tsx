@@ -10,7 +10,7 @@ interface MainBoxProps {
 
 const MainBox = ({ tipsData }: MainBoxProps) => {
   return (
-    <div className="no-scrollbar xs:gap-[10px] grid grid-cols-2 overflow-y-hidden sm:gap-[12px] md:gap-[18px] lg:gap-[22px]">
+    <div className="no-scrollbar grid grid-cols-2 overflow-y-hidden xs:gap-[10px] sm:gap-[12px] md:gap-[18px] lg:gap-[22px]">
       {tipsData.map((item) => (
         <MainItem key={item.id} item={item} />
       ))}

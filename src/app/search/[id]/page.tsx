@@ -1,13 +1,16 @@
 import SearchResultsView from '@/components/searchPage/SearchResultsView';
+// import { getSearch } from '@/apis/getSearch';
 
-
-
-export default function SearchResult({ params }: { params: { id: string } }) {
+export default async function SearchResult({ params }: { params: { id: string } }) {
   const decodedText = decodeURIComponent(params.id);
-  return (
-    <main className="relative min-h-screen">
-      <SearchResultsView searchKeyword={decodedText}/>
-    </main>
+  console.log(decodedText)
+  // const res = await getSearch(params.id)
 
-  );
+    return (
+      <main className="relative min-h-screen">
+        <SearchResultsView searchKeyword={decodedText}  />
+      </main>
+
+    );
+
 }
