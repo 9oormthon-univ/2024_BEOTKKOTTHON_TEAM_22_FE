@@ -1,7 +1,7 @@
 'use client';
 import {useRouter} from "next/navigation";
 import {XIcon} from "@/components/common/Icons";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 import { setAccessToken } from '@/utils/auth';
@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 export default function LoginView() {
   const router = useRouter()
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [_isSuccess, setIsSuccess] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -37,26 +37,26 @@ export default function LoginView() {
         const response = await axios.post('http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/login', formData);
         if(response){
           const accessToken = response.headers.authorization.split(' ')[1];
-          setAccessToken(accessToken);
+          const email = response.data.response.email
+          const userId = response.data.response.id
+          setAccessToken(accessToken,email,userId);
+          console.log('email',email)
           console.log('response:',response, ' response.data.response',response.data.response)
           localStorage.setItem('user',JSON.stringify(response.data.response))
           setIsSuccess(true)
-          alert('로그인 성공!')
+          router.push('/')
         }
       }else {
         setIsSuccess(false)
         alert('이메일과 비밀번호를 다시 입력해주세요!')
       }
     } catch (error) {
+
       console.error('로그인 에러:', error);
     }
   };
 
-  useEffect(() => {
-    if (isSuccess){
-      // router.push('/');
-    }
-  }, [isSuccess]);
+
 
   return (
     <div className={'px-[24px]'}>
@@ -69,20 +69,20 @@ export default function LoginView() {
         <Image src={'/images/Logo.svg'} alt={'로그인 로고'} width={116} height={116}/>
       </div>
       <div className={'mt-[36px] mb-[16px]'}>
-        <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
+        <input className='pl-[16px] w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='text'
                value={formData.email}
                id={'email'}
-               placeholder={'  이메일을 입력해주세요.'}
+               placeholder={'이메일을 입력해주세요.'}
                onChange={handleEmailChange}
         />
       </div>
       <div className={'mb-[28px]'}>
-        <input className='w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
+        <input className='pl-[16px] w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
                type='password'
                value={formData.password}
                id={'password'}
-               placeholder={'  비밀번호를 입력해주세요.'}
+               placeholder={'비밀번호를 입력해주세요.'}
                onChange={handlePasswordChange}
         />
       </div>

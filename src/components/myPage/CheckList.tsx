@@ -1,31 +1,42 @@
 'use client';
-import { AddIcon, TodoMenuIcon } from '@/components/common/Icons';
-import CheckListEdit from '@/components/myPage/CheckListEdit';
-import { useEffect, useState } from 'react';
+import { AddIcon, HoneyTipIcon } from '@/components/common/Icons';
+import React, {  useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { DataProps } from '@/apis/getCheckList';
 
-export default function CheckList() {
-  const [showPopup, setShowPopup] = useState(false);
+
+interface CheckLisProps {
+  checkLists: DataProps[];
+}
+
+
+export default function CheckList({checkLists}:CheckLisProps) {
   const [isAdd, setIsAdd]=useState(false);
   const [inputValue, setInputValue] = useState('');
+  const router = useRouter()
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setInputValue(value);
   };
 
-  const handleInputKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+
+  const handleSubmitControl = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      handleInputSubmit();
+      console.log('전송' )
     }
-  };
-  const handleInputSubmit = () => {
-    if (showPopup){
-      setShowPopup(false)
-    }
-    setIsAdd(!isAdd)
   };
 
-  const handleShowPopup = () => {
-    setShowPopup(!showPopup);
+  const handleMoveToSearch = (item: string) => {
+    if(item === '자취 필수템 확인하셨나요?'){
+      router.push(`/search/자취`)
+    } else if(item === '효율적인 설거지를 하고 있나요?'){
+      router.push(`/search/설거지`)
+    }else{
+      router.push(`/search/화장실`)
+    }
   };
 
   const handleAddList = () => {
@@ -33,49 +44,57 @@ export default function CheckList() {
   };
 
   const handleDeleteList =()=>{
-
+    console.log('삭제' )
   }
-
-  useEffect(() => {
-  }, [showPopup]);
 
   return (
     <>
       <div className={'mb-[20px] mt-[52px] flex'}>
         <div className={'flex-1 text-[24px] font-semibold'}>체크 리스트</div>
-        <button onClick={handleAddList} className={'mr-[16px]'}>
-          <AddIcon />
-        </button>
+        <button onClick={handleAddList} className={'mr-[12px]'}><AddIcon /></button>
       </div>
-      <div className={'mb-[12px] h-[64px] '}>
-        <div
-          className={
-            'flex h-[64px] w-full rounded-[12px] border-[1px] border-mint '
-          }
-        >
-          <input
-            type={'checkbox'}
-            className={'my-[20px] mx-[16px] size-[24px] appearance-none rounded-[4px] bg-lightGray checked:bg-mint checked:border-transparent'} />
-          {isAdd ?
-            <input type={'text'}
-                   value={inputValue}
-                   onChange={handleInputChange}
-                   onKeyDown={handleInputKeyPress}
-                   className={'flex-1 w-[100%] overflow-wrap'} />
-            : <div className={'flex-1 w-[100%] py-5 overflow-wrap '}>{inputValue}</div>}
+      {checkLists.map(item => (
+        <div key={item.id} className={'mb-[12px] h-[64px]'}>
+          <div className={'flex items-center h-[64px] w-full rounded-[12px] border-[1px] border-mint'}>
+            <button
+              onClick={handleDeleteList}
+              className={'my-[20px] mx-[12px] w-[24px] h-[24px] appearance-none rounded-[4px] bg-lightGray checked:bg-mint checked:border-transparent'}>
+            </button>
 
-          <div
-            onClick={handleShowPopup}
-            className={'mx-[16px] my-[24px] justify-center'}
-          >
-            <TodoMenuIcon />
+            <div className={'pl-[10px] w-[75%] overflow-wrap'}>
+              {item.title}
+            </div>
+            <button
+              onClick={() => handleMoveToSearch(item.title)}
+              className={'mt-[19px] mb-[18px] mx-[14px]'}>
+              <HoneyTipIcon />
+            </button>
           </div>
         </div>
-        {showPopup && (
-          <CheckListEdit onEdit={handleInputSubmit}  />
+
+      ))}
+      <div>
+        {isAdd && (
+          <div className={'mb-[12px] h-[64px]'}>
+            <div className={'flex h-[64px] w-full rounded-[12px] border-[1px] border-mint'}>
+              <button
+                onClick={handleDeleteList}
+                className={'my-[20px] mx-[12px] w-[24px] h-[24px] appearance-none rounded-[4px] bg-lightGray checked:bg-mint checked:border-transparent'}>
+              </button>
+            </div>
+            <input type={'text'}
+                   value={inputValue}
+                   onChange={handleChange}
+                   onKeyDown={handleSubmitControl}
+                   className={'pl-[16px] w-[75%] overflow-wrap'} />
+            <button
+              className={'mt-[19px] mb-[18px] mx-[14px]'}>
+              <HoneyTipIcon />
+            </button>
+          </div>
         )}
       </div>
-      <div className={'h-16'}></div>
-    </>
-  );
+
+</>
+)
 }
