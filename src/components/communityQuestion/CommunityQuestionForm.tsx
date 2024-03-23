@@ -1,14 +1,17 @@
 'use client';
 
 import React, { ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
+import { postCommunityDetail } from '@/apis/postCommunityDetail';
 import { CameraIcon, CancelCircleIcon } from '../common/Icons';
 
 interface CommunityQuestionForm {
   title: string;
   content: string;
-  image_url: string[];
+  imageurl: string[];
+  email: string;
 }
 
 const CommunityQuestionForm = () => {
@@ -17,17 +20,23 @@ const CommunityQuestionForm = () => {
   const [formData, setFormData] = useState<CommunityQuestionForm>({
     title: '',
     content: '',
-    image_url: [],
+    imageurl: [],
+    email: 'test01@naver.com',
   });
+
+  const router = useRouter();
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    postCommunityDetail(formData);
     setFormData({
       title: '',
       content: '',
-      image_url: [],
+      imageurl: [],
+      email: '',
     });
-    console.log(formData);
+    // id값 디테일로 이동해야 함.
+    router.push('/community');
   };
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +51,7 @@ const CommunityQuestionForm = () => {
       const files: FileList = e.target.files;
       const imageUrls: string[] = [];
 
-      const selectedFileCount = formData.image_url.length;
+      const selectedFileCount = formData.imageurl.length;
 
       const remainingCapacity = 5 - selectedFileCount;
 
@@ -62,7 +71,7 @@ const CommunityQuestionForm = () => {
           if (imageUrls.length === files.length) {
             setFormData({
               ...formData,
-              image_url: [...formData.image_url, ...imageUrls],
+              imageurl: [...formData.imageurl, ...imageUrls],
             });
           }
         };
@@ -125,10 +134,10 @@ const CommunityQuestionForm = () => {
           style={{ display: 'none' }}
         />
         <div className="mt-[-5px] flex items-center gap-[12px] overflow-x-auto overflow-x-scroll pr-[8px] pt-[5px] xs:max-w-[182px] sm:max-w-[192px] md:max-w-[212px] lg:max-w-[312]">
-          {formData.image_url.map((_item, index) => (
+          {formData.imageurl.map((_item, index) => (
             <div key={index} className="relative ">
               <Image
-                src={formData.image_url[index]}
+                src={formData.imageurl[index]}
                 width="0"
                 height="0"
                 sizes="100vw"

@@ -1,3 +1,5 @@
+import { BASE_URL } from '.';
+
 export interface Response {
   response: CommunityDetail;
 }
