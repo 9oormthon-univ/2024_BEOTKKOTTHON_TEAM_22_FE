@@ -12,18 +12,11 @@ const CommunityDetailCommentBox = ({
   commentData,
 }: CommunityDetailCommentBoxProps) => {
   return (
-    <section className="xs:px-[24px] min-h-[80vh] bg-white">
+    <section className="min-h-[80vh] bg-white xs:px-[24px]">
       <div className=" pb-[20px] pt-[28px] ">
         <span className="font-semilbold text-[24px]">댓글</span>
       </div>
       <CommunityDetailCommentForm />
-      {commentData.comments.map((item, index) => (
-        <CommunityDetailCommentItem
-          key={item.id}
-          item={item}
-          isLastItem={index === commentData.comments.length - 1}
-        />
-      ))}
     </section>
   );
 };

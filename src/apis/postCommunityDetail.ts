@@ -1,32 +1,22 @@
 import { BASE_URL } from '.';
+import axios from 'axios';
 
-interface postCommunityDetailProps {
-  title: string;
-  content: string;
-  email: string;
-  imageurl: string[];
-}
-
-export const postCommunityDetail = async (
-  formData: postCommunityDetailProps,
-) => {
+export const postCommunityDetail = async (formData: FormData) => {
   try {
-    const res = await fetch(`${BASE_URL}/api/community/question`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await axios.post(
+      `${BASE_URL}/api/community/question`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       },
-      body: JSON.stringify(formData),
-    });
+    );
 
-    if (!res.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await res.json();
+    const data = await res.data;
 
     return data;
   } catch (err) {
-    throw new Error('Failed to fetch getRankingTips');
+    throw new Error('Failed to fetch...');
   }
 };

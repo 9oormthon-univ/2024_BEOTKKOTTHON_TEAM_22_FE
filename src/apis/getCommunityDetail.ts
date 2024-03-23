@@ -1,7 +1,7 @@
 import { BASE_URL } from '.';
 
 export interface Response {
-  response: CommunityDetail;
+  questions: CommunityDetail;
 }
 
 export interface CommunityDetail {
@@ -10,22 +10,18 @@ export interface CommunityDetail {
   title: string;
   content: string;
   image_url: string[];
-  bookmark_status: boolean;
-  bookmark_count: number;
-  comment_count: number;
+  bookmarkstatus: boolean;
+  bookmarkcount: number;
+  commentcount: number;
+  profile_image: string;
   timestamp: string;
-  user: User;
+  email: string;
+  nickname: string;
   comments: CommuniyComments[];
 }
 
-export interface User {
-  profile_image: string;
-  nickname: string;
-  grade: string;
-}
-
 export interface CommuniyComments {
-  id: number;
+  commnetid: number;
   content: string;
   timestamp: string;
   nickname: string;
@@ -33,12 +29,14 @@ export interface CommuniyComments {
 }
 
 export const getCommunityDetail = async (
-  detailId: number = 2,
+  detailId: number,
 ): Promise<Response> => {
   try {
     const res = await fetch(
-      `https://user1710776235315.requestly.tech/community/detail/${detailId}`,
-      { next: { tags: ['communityDetail'] } },
+      `${BASE_URL}/api/community/items/details/${detailId}`,
+      {
+        next: { tags: ['communityDetail'] },
+      },
     );
 
     if (!res.ok) {
@@ -47,7 +45,7 @@ export const getCommunityDetail = async (
 
     const data = await res.json();
 
-    return data;
+    return data.response;
   } catch (err) {
     console.log(err);
     throw new Error('Failed to fetch getCommunityDetail');

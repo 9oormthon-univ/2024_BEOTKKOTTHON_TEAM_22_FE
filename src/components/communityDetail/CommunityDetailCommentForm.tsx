@@ -8,7 +8,6 @@ const CommunityDetailCommentForm = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     if (commentValue.length !== 0) {
       e.preventDefault();
-      console.log(commentValue);
       setCommentValue('');
     }
   };
@@ -28,7 +27,7 @@ const CommunityDetailCommentForm = () => {
     <form onSubmit={onSubmit} className="width-100%">
       <textarea
         placeholder="댓글을 달아보세요!"
-        className="xs:min-w-[312px] xs:px-[24px] min-h-[64px] resize-none rounded-lg border border-[#d9d9d9] pt-[24px] sm:min-w-[327px] md:w-[380px] md:max-w-[380px]"
+        className="min-h-[64px] resize-none rounded-lg border border-[#d9d9d9] pt-[24px] xs:min-w-[312px] xs:px-[24px] sm:min-w-[327px] md:w-[380px] md:max-w-[380px]"
         value={commentValue}
         onChange={onChange}
         onKeyDown={onEnterTextarea}

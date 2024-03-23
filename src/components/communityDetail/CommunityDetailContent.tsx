@@ -21,15 +21,15 @@ const CommunityDetailContent = ({
 }: CommunityDetailContentProps) => {
   const {
     title,
-    bookmark_status,
+    bookmarkstatus,
     content,
-    image_url,
-    bookmark_count,
-    comment_count,
+    // image_url,
+    bookmarkcount,
+    commentcount,
     timestamp,
   } = contentData;
 
-  const [status, setStauts] = useState<boolean>(bookmark_status);
+  const [status, setStauts] = useState<boolean>(bookmarkstatus);
   const clickedImage = useSetRecoilState(expandImageState);
 
   const time = timeFormatDate(timestamp);
@@ -59,7 +59,7 @@ const CommunityDetailContent = ({
       </div>
       <div className="relative h-auto bg-white py-[16px] xs:px-[24px] ">
         <p className="text-[16px]">{content}</p>
-        <p className="inline-block flex gap-[12px] overflow-x-auto pt-[16px] xs:max-w-[312px] sm:max-w-[327px] md:w-[380px] md:max-w-[380px]">
+        {/* <p className="inline-block flex gap-[12px] overflow-x-auto pt-[16px] xs:max-w-[312px] sm:max-w-[327px] md:w-[380px] md:max-w-[380px]">
           {image_url.map((item, index) => (
             <Image
               onClick={() => onClickImage(item)}
@@ -78,20 +78,20 @@ const CommunityDetailContent = ({
               className="min-h-[148px] min-w-[148px] cursor-pointer"
             />
           ))}
-        </p>
+        </p> */}
       </div>
       <div className="flex items-center justify-between bg-white px-[12px] py-[16px] xs:px-[24px]">
         <div className="flex items-center gap-[8px]">
           <div className="flex items-center gap-[3px]">
             <ContentBookmarkIcon />
             <span className="text-[14px]">
-              {bookmark_count > 99 ? '99+' : bookmark_count}
+              {bookmarkcount > 99 ? '99+' : bookmarkcount}
             </span>
           </div>
           <div className="flex items-center gap-[3px]">
             <ContentCommentIcon />
             <span className="text-[14px]">
-              {comment_count > 99 ? '99+' : comment_count}
+              {commentcount > 99 ? '99+' : commentcount}
             </span>
           </div>
         </div>

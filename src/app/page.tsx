@@ -11,7 +11,7 @@ export default async function Home() {
     <>
       <Header />
       <section className="min-h-screen">
-        <div className="xs:px-[12px] px-[20px] md:px-[24px]">
+        <div className="px-[20px] xs:px-[12px] md:px-[24px]">
           <h1 className="pt-[20px] text-[24px] font-semibold">
             집안일요정이 알려드려요
           </h1>

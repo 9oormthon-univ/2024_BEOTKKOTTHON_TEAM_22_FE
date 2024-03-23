@@ -18,7 +18,7 @@ interface CommunityDetailProps {
 }
 
 const CommunityDetail = ({ detailData }: CommunityDetailProps) => {
-  const data = detailData.response;
+  const data = detailData.questions;
 
   const clickedImage = getExpandImageRecoil();
   const setExpandImage = useSetRecoilState(expandImageState);
