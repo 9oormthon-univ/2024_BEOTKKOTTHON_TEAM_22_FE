@@ -7,6 +7,7 @@ import InputPassword from "@/components/joinPage/InputPassword";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import axios from "axios";
+import { number } from 'prop-types';
 
 export default function JoinView() {
   const router = useRouter()
@@ -15,6 +16,8 @@ export default function JoinView() {
     email: '',
     password: '',
     nickname: '',
+    totalpoint: 0,
+    grade: 'level.1',
   });
 
   const handleEmailChange = (email: string) => {
@@ -41,7 +44,7 @@ export default function JoinView() {
   const handleSubmit = async ()=>{
     try{
       if (formData.email && formData.password && formData.nickname){
-        const response = await axios.post('/user/signup', formData);
+        const response = await axios.post('http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/signup', formData);
         setIsSuccess(true)
         console.log('성공',formData)
       }else {
