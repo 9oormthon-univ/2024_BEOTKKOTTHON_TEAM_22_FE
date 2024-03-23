@@ -34,13 +34,15 @@ export default function LoginView() {
   const handleSubmit = async ()=>{
     try{
       if (formData.email && formData.password ){
-        const response = await axios.post('/user/login', formData);
-        setIsSuccess(true)
-        const { accessToken } = response.data; // 서버로부터 받은 accessToken
-        console.log('response.data:',response.data)
-        setAccessToken(accessToken);
-        console.log('accessToken:',accessToken)
-        alert('로그인 성공!')
+        const response = await axios.post('http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/login', formData);
+        if(response){
+          const accessToken = response.headers.authorization.split(' ')[1];
+          setAccessToken(accessToken);
+          console.log('response:',response, ' response.data.response',response.data.response)
+          localStorage.setItem('user',JSON.stringify(response.data.response))
+          setIsSuccess(true)
+          alert('로그인 성공!')
+        }
       }else {
         setIsSuccess(false)
         alert('이메일과 비밀번호를 다시 입력해주세요!')
@@ -52,7 +54,7 @@ export default function LoginView() {
 
   useEffect(() => {
     if (isSuccess){
-      router.push('/');
+      // router.push('/');
     }
   }, [isSuccess]);
 
