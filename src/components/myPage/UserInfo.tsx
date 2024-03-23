@@ -11,9 +11,10 @@ import { useRouter } from 'next/navigation';
 interface Props {
   nickname: string;
   grade: string;
+  totalpoint: number;
 }
 
-export default function UserInfo({ nickname, grade }: Props) {
+export default function UserInfo({ nickname, grade, totalpoint }: Props) {
   const router = useRouter();
   const [isLogout, setLogout] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -80,6 +81,14 @@ export default function UserInfo({ nickname, grade }: Props) {
             onConfirm={handleConfirmLogout}
           />
         )}
+      </div>
+      <div
+        className={
+          'mt-[36px] flex h-[100px] w-full items-center rounded-[12px] bg-mint px-[17px] text-white'
+        }
+      >
+        <p className={'flex-1 text-[20px] font-semibold'}>보유 포인트</p>
+        <p className={'text-[20px] font-semibold'}>{totalpoint}P</p>
       </div>
     </>
   );

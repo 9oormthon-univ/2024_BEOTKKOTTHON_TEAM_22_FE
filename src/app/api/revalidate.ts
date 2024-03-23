@@ -8,3 +8,4 @@ import { revalidateTag } from 'next/cache';
 export const fromClientRevalidateTag = (tagName: string) => {
   revalidateTag(tagName);
 };
+

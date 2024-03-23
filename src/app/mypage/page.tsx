@@ -12,6 +12,8 @@ export default async function Mypage() {
     return (
       <main className="relative min-h-screen">
         {/* <MypageView res={res} /> */}
+
+        <MypageView UserInfoRes={res.response} />
       </main>
     );
   }

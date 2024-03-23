@@ -3,7 +3,6 @@ import { SearchIcon } from '@/components/common/Icons';
 import BackHeader from '@/components/common/BackHeader';
 import Link from 'next/link';
 import { useState } from 'react';
-import { router } from 'next/client';
 import { useRouter } from 'next/navigation';
 
 export default function SearchPageView() {
@@ -23,7 +22,6 @@ export default function SearchPageView() {
 
   const handleInputSubmit = () => {
     router.push(`/search/${inputValue}`)
-    //api 연동
 
   };
 

@@ -6,7 +6,6 @@ import InputPassword from '@/components/joinPage/InputPassword';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { number } from 'prop-types';
 
 export default function JoinView() {
   const router = useRouter();
