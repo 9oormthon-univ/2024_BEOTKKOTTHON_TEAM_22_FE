@@ -1,16 +1,15 @@
-
 'use client';
-import InputNickName from "@/components/joinPage/InputNickName";
-import InputEmail from "@/components/joinPage/InputEmail";
-import {XIcon} from "@/components/common/Icons";
-import InputPassword from "@/components/joinPage/InputPassword";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import axios from "axios";
+import InputNickName from '@/components/joinPage/InputNickName';
+import InputEmail from '@/components/joinPage/InputEmail';
+import { XIcon } from '@/components/common/Icons';
+import InputPassword from '@/components/joinPage/InputPassword';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 export default function JoinView() {
-  const router = useRouter()
-  const [isSuccess, setIsSuccess] = useState(false)
+  const router = useRouter();
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,7 +25,6 @@ export default function JoinView() {
     }));
   };
 
-
   const handleNicknameChange = (nickname: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -40,22 +38,24 @@ export default function JoinView() {
       password: password,
     }));
   };
-  const handleSubmit = async ()=>{
-    try{
-      if (formData.email && formData.password && formData.nickname){
-        const response = await axios.post('http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/signup', formData);
-        setIsSuccess(true)
-        console.log('성공',formData)
-      }else {
-        setIsSuccess(false)
-        alert('다시 입력해주세요!')
+  const handleSubmit = async () => {
+    try {
+      if (formData.email && formData.password && formData.nickname) {
+        const response = await axios.post(
+          'http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/signup',
+          formData,
+        );
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+        alert('다시 입력해주세요!');
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
   useEffect(() => {
-    if (isSuccess){
+    if (isSuccess) {
       router.push('/login');
     }
   }, [isSuccess]);
@@ -63,28 +63,30 @@ export default function JoinView() {
   return (
     <>
       <div className={'px-[24px]'}>
-        <div className={'pt-6 , pb-8'}>
-          <button onClick={()=> router.push('/')}>
-            <XIcon/>
+        <div className={', pb-8 pt-6'}>
+          <button onClick={() => router.push('/')}>
+            <XIcon />
           </button>
         </div>
-        <div className={" pt-5 pb-8 text-[28px]"}>
+        <div className={' pb-8 pt-5 text-[28px]'}>
           <h1 className={'text-left font-bold '}>집안일 요정이</h1>
           <h1 className={'text-left font-bold '}>처음이신가요?</h1>
         </div>
-        <InputNickName onChange={handleNicknameChange}/>
-        <InputEmail onChange={handleEmailChange}/>
-        <InputPassword onChange={handlePasswordChange}/>
+        <InputNickName onChange={handleNicknameChange} />
+        <InputEmail onChange={handleEmailChange} />
+        <InputPassword onChange={handlePasswordChange} />
       </div>
       <div className={'pt-32'}>
-        <button type={'submit'}
-                onClick={handleSubmit}
-                className={'w-[100%] text-[20px] text-white font-semibold bg-mint h-[82px] hover:bg-darkMint'}>
+        <button
+          type={'submit'}
+          onClick={handleSubmit}
+          className={
+            'h-[82px] w-[100%] bg-mint text-[20px] font-semibold text-white hover:bg-darkMint'
+          }
+        >
           회원가입하기
         </button>
       </div>
     </>
-
-
   );
 }

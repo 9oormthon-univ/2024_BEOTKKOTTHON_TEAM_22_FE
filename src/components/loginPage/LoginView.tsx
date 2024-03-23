@@ -31,11 +31,14 @@ export default function LoginView() {
     }));
   };
 
-  const handleSubmit = async ()=>{
-    try{
-      if (formData.email && formData.password ){
-        const response = await axios.post('http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/login', formData);
-        if(response){
+  const handleSubmit = async () => {
+    try {
+      if (formData.email && formData.password) {
+        const response = await axios.post(
+          'http://test-env.eba-qhapwy3c.ap-northeast-2.elasticbeanstalk.com/api/login',
+          formData,
+        );
+        if (response) {
           const accessToken = response.headers.authorization.split(' ')[1];
           const email = response.data.response.email
           const userId = response.data.response.id
@@ -46,9 +49,9 @@ export default function LoginView() {
           setIsSuccess(true)
           router.push('/')
         }
-      }else {
-        setIsSuccess(false)
-        alert('이메일과 비밀번호를 다시 입력해주세요!')
+      } else {
+        setIsSuccess(false);
+        alert('이메일과 비밀번호를 다시 입력해주세요!');
       }
     } catch (error) {
 
@@ -60,13 +63,18 @@ export default function LoginView() {
 
   return (
     <div className={'px-[24px]'}>
-      <div className={'pt-6 , pb-8'}>
+      <div className={', pb-8 pt-6'}>
         <button onClick={() => router.push('/')}>
           <XIcon />
         </button>
       </div>
       <div className={'mt-32 flex justify-center'}>
-        <Image src={'/images/Logo.svg'} alt={'로그인 로고'} width={116} height={116}/>
+        <Image
+          src={'/images/Logo.svg'}
+          alt={'로그인 로고'}
+          width={116}
+          height={116}
+        />
       </div>
       <div className={'mt-[36px] mb-[16px]'}>
         <input className='pl-[16px] w-[100%] h-16 rounded-[12px] border-[1px] border-lightGray'
@@ -87,19 +95,24 @@ export default function LoginView() {
         />
       </div>
       <div className={'mb-[20px]'}>
-        <button type={'submit'}
-                onClick={handleSubmit}
-                className={'w-[100%] text-white bg-mint rounded-[12px] h-16 hover:bg-darkMint'}>
+        <button
+          type={'submit'}
+          onClick={handleSubmit}
+          className={
+            'h-16 w-[100%] rounded-[12px] bg-mint text-white hover:bg-darkMint'
+          }
+        >
           로그인
         </button>
       </div>
       <div className={'flex justify-center text-[16px]'}>
         <p className={'text-darkGray '}>아직 회원이 아니신가요?</p>
         <Link href={'join'}>
-          <p className={'text-mint font-semibold pl-1 hover:text-darkmint'}>회원가입</p>
+          <p className={'hover:text-darkmint pl-1 font-semibold text-mint'}>
+            회원가입
+          </p>
         </Link>
       </div>
     </div>
-
   );
 }

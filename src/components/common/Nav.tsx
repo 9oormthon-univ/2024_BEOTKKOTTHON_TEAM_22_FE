@@ -2,36 +2,30 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
-import { getAccessToken, getEmailFromAccessToken } from '@/utils/auth';
-import { useState } from 'react';
+import { getAccessToken } from '@/utils/auth';
 import LoginPopup from '@/components/common/LoginPopup';
-import { getShowPopupState, showPopupState } from '@/recoil/showPopup';
+import { showPopupState } from '@/recoil/showPopup';
 import { useRecoilState } from 'recoil';
-
 
 const Nav = () => {
   const pathname = usePathname();
   const isActive = (path: string): boolean => {
     const currentPath = pathname;
-    const escapedPath = path.replace(/\//g, '\\/').replace(/\*/g, '.*'); // 정규식 특수 문자를 이스케이프합니다.
+    const escapedPath = path.replace(/\//g, '\\/').replace(/\*/g, '.*');
     const regex = new RegExp(`^${escapedPath}(\/[a-zA-Z0-9]+)?\/?$`);
     return regex.test(currentPath);
   };
 
+  const accessToken = getAccessToken();
   const router = useRouter();
-  const  [popupState,setPopupState] =useRecoilState(showPopupState)
+  const [popupState, setPopupState] = useRecoilState(showPopupState);
 
-  const handleLinkClick = () => {
-    setPopupState(true)
-    const accessToken = getAccessToken();
-    console.log('accessToken',accessToken)
+  const handleLinkClick = (pageName: string) => {
     if (accessToken) {
-      console.log('accessToken',accessToken)
-      // const userEmail = getEmailFromAccessToken();
-      const userId = 'dddddd';
-      // access_token이 있는 경우 해당 URL로 이동
-      router.push(`/mypage/${userId}`);
-
+      setPopupState(false);
+      router.push(`/${pageName}`);
+    } else {
+      setPopupState(true);
     }
   };
 
@@ -49,17 +43,21 @@ const Nav = () => {
             홈
           </span>
         </Link>
-        <Link
-          href="/like"
-          className="flex cursor-pointer flex-col items-center py-[14px]"
-        >
-          <BookmarkIcon color={isActive('/like') ? '#3fe0d1' : '#7d7d7d'} />
-          <span
-            className={`pt-[6px] text-[13px] ${isActive('/like') ? 'text-black' : 'text-gray'}`}
+
+        <div>
+          <div
+            className="flex cursor-pointer flex-col items-center py-[14px]"
+            onClick={() => handleLinkClick('like')}
           >
-            북마크
-          </span>
-        </Link>
+            <BookmarkIcon color={isActive('/like') ? '#3fe0d1' : '#7d7d7d'} />
+            <span
+              className={`pt-[6px] text-[13px] ${isActive('/like') ? 'text-black' : 'text-gray'}`}
+            >
+              북마크
+            </span>
+          </div>
+          {popupState && <LoginPopup />}
+        </div>
         <Link
           href="/community"
           className="flex cursor-pointer flex-col items-center py-[14px]"
@@ -73,10 +71,9 @@ const Nav = () => {
             Q&A
           </span>
         </Link>
-
         <div
           className="flex cursor-pointer flex-col items-center py-[14px]"
-          onClick={handleLinkClick}
+          onClick={() => handleLinkClick('mypage')}
         >
           <MypageIcon color={isActive('/mypage') ? '#3fe0d1' : '#7d7d7d'} />
           <span
@@ -85,7 +82,7 @@ const Nav = () => {
             마이페이지
           </span>
         </div>
-        {popupState && <LoginPopup/>}
+        {popupState && <LoginPopup />}
       </div>
     </nav>
   );

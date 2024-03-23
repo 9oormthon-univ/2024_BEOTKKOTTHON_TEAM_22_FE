@@ -8,11 +8,11 @@ interface LikeCategoryItemProps {
 }
 
 const LikeCategoryItem = ({
-                            item,
-                            isSelected,
-                            isSelectedCategory,
-                            handleClickCategory,
-                          }: LikeCategoryItemProps) => {
+  item,
+  isSelected,
+  isSelectedCategory,
+  handleClickCategory,
+}: LikeCategoryItemProps) => {
   const handleCategoryClick = () => {
     handleClickCategory(item.name);
     isSelectedCategory(item.name);

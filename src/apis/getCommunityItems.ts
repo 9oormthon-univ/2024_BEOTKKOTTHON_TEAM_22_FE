@@ -1,14 +1,17 @@
 import { BASE_URL } from '.';
 
 export interface Response {
-  response: Community[];
+  questions: Community[];
 }
 
 export interface Community {
   id: number;
+  email: string;
+  nickname: string;
   category: string;
   title: string;
-  image_url: string;
+  image_url: string[];
+  bookmark_stauts: boolean;
   bookmark_count: number;
   comment_count: number;
   timestamp: string;
@@ -16,10 +19,9 @@ export interface Community {
 
 export const getCommunityItems = async (): Promise<Response> => {
   try {
-    const res = await fetch(
-      `https://user1710776235315.requestly.tech/community/items`,
-      { next: { tags: ['communityItems'] } },
-    );
+    const res = await fetch(`${BASE_URL}/api/community/items`, {
+      next: { tags: ['communityItems'] },
+    });
 
     if (!res.ok) {
       throw new Error('Network response was not ok');
@@ -27,7 +29,7 @@ export const getCommunityItems = async (): Promise<Response> => {
 
     const data = await res.json();
 
-    return data;
+    return data.response;
   } catch (err) {
     throw new Error('Failed to fetch getCommunityItems');
   }

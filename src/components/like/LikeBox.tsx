@@ -4,7 +4,7 @@ import LikeItem from './LikeItem';
 const LikeBox = () => {
   return (
     <div>
-      <LikeItem/>
+      <LikeItem />
     </div>
   );
 };

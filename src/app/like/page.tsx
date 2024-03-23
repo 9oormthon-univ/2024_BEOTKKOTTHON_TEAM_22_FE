@@ -6,7 +6,7 @@ const page = () => {
   return (
     <>
       <Header title="북마크" />
-      <section className="xs:px-[12px] md:px-[24px]">
+      <section className="min-h-screen xs:px-[12px]  md:px-[24px]">
         <Like />
       </section>
       <Nav />

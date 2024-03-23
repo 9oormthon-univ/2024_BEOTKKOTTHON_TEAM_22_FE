@@ -10,10 +10,10 @@ interface CommunityDetailProfileProps {
 const CommunityDetailProfile = ({
   profileData,
 }: CommunityDetailProfileProps) => {
-  const { profile_image, nickname, grade } = profileData.user;
+  const { profile_image, nickname } = profileData;
 
   return (
-    <section className="xs:px-[24px] mb-[12px] flex items-center bg-white py-[20px]">
+    <section className="mb-[12px] flex items-center bg-white py-[20px] xs:px-[24px]">
       <div className="pr-[14px]">
         <Image
           src={profile_image}
@@ -33,9 +33,9 @@ const CommunityDetailProfile = ({
         <div>
           <span className="text-[18px] font-semibold">{nickname}</span>
         </div>
-        <div>
+        {/* <div>
           <span className="text-[14px]">{grade}</span>
-        </div>
+        </div> */}
       </div>
     </section>
   );

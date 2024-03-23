@@ -11,7 +11,7 @@ interface CommunityProps {
 const Community = ({ communites }: CommunityProps) => {
   return (
     <>
-      <CommunityBox communites={communites.response} />
+      <CommunityBox communites={communites.questions} />
     </>
   );
 };

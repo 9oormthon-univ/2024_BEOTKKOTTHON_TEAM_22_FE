@@ -2,22 +2,21 @@
 
 import LogoutPopup from '@/components/myPage/LogoutPopup';
 import { useEffect, useState } from 'react';
+import { UserIcon } from '@/components/common/Icons';
 import { UserImageList } from '@/components/myPage/UserImageList';
 import Image from 'next/image';
 import { removeAccessToken } from '@/utils/auth';
 import { useRouter } from 'next/navigation';
 
-
 interface Props {
-  nickname: string,
-  grade: string,
-  totalpoint: number,
+  nickname: string;
+  grade: string;
+  totalpoint: number;
 }
 
-
-export default function UserInfo({nickname, grade, totalpoint}:Props) {
-  const router = useRouter()
-  const [isLogout, setLogout] = useState(false)
+export default function UserInfo({ nickname, grade, totalpoint }: Props) {
+  const router = useRouter();
+  const [isLogout, setLogout] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const handleLogout = () => {
     setShowPopup(true);
@@ -29,52 +28,68 @@ export default function UserInfo({nickname, grade, totalpoint}:Props) {
 
   const handleConfirmLogout = () => {
     removeAccessToken();
-    console.log("로그아웃 되었습니다.");
     setShowPopup(false);
-    setLogout(true)
+    setLogout(true);
   };
 
   useEffect(() => {
-    if (isLogout){
+    if (isLogout) {
       router.push('/');
     }
   }, [isLogout]);
 
   return (
     <>
-      <div className={'flex flex-nowrap mt-[44px]'}>
+      <div className={'mt-[44px] flex flex-nowrap'}>
         <div
-          className={'w-[120px] h-[120px] flex justify-center items-center rounded-full border-[1px] border-lightGray'}>
+          className={
+            'flex h-[120px] w-[120px] items-center justify-center rounded-full border-[1px] border-lightGray'
+          }
+        >
           {UserImageList.map((i) => {
             if (grade === i.grade) {
               return (
-                <Image key={i.grade} src={i.image} alt={i.grade} width={100} height={100} />
+                <Image
+                  key={i.grade}
+                  src={i.image}
+                  alt={i.grade}
+                  width={100}
+                  height={100}
+                />
               );
             }
             return null;
           })}
         </div>
-        <div className={'flex-1 ml-[20px] mt-10'}>
-          <p className={'font-bold text-[24px] justify-center items-center'}>{nickname}</p>
+        <div className={'ml-[20px] mt-10 flex-1'}>
+          <p className={'items-center justify-center text-[24px] font-bold'}>
+            {nickname}
+          </p>
           <span className={'text-[16px]'}>{grade}</span>
         </div>
         <div className={'mt-10'}>
           <button
-            className="bg-lightGray text-[14px] w-[68px] h-[32px] rounded-[6px] hover:bg-white hover:text-black hover:border-lightGray hover:border-[1px] "
+            className="h-[32px] w-[68px] rounded-[6px] bg-lightGray text-[14px] hover:border-[1px] hover:border-lightGray hover:bg-white hover:text-black "
             onClick={handleLogout}
           >
             로그아웃
           </button>
         </div>
         {showPopup && (
-          <LogoutPopup onCancel={handleCancel} onConfirm={handleConfirmLogout} />
+          <LogoutPopup
+            onCancel={handleCancel}
+            onConfirm={handleConfirmLogout}
+          />
         )}
       </div>
-      <div className={'px-[17px] mt-[36px] flex items-center w-full h-[100px] bg-mint text-white rounded-[12px]'}>
-        <p className={'flex-1 font-semibold text-[20px]'}>보유 포인트</p>
-        <p className={'font-semibold text-[20px]'}>{totalpoint}P</p>
+      <div
+        className={
+          'mt-[36px] flex h-[100px] w-full items-center rounded-[12px] bg-mint px-[17px] text-white'
+        }
+      >
+        <p className={'flex-1 text-[20px] font-semibold'}>보유 포인트</p>
+        <p className={'text-[20px] font-semibold'}>{totalpoint}P</p>
       </div>
     </>
-
   );
 }

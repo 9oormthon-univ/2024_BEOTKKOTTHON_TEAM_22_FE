@@ -1,9 +1,8 @@
-import Link from 'next/link';
 import Header from '@/components/common/Header';
 import Community from '@/components/community/Community';
 import Nav from '@/components/common/Nav';
-import { RightArrowIcon } from '@/components/common/Icons';
 import { getCommunityItems } from '@/apis/getCommunityItems';
+import CommunityQuestionButton from '@/components/communityQuestion/CommunityQuestionButton';
 
 export default async function CommunityPage() {
   const res = await getCommunityItems();
@@ -11,21 +10,8 @@ export default async function CommunityPage() {
   return (
     <>
       <Header title="Q&A" />
-      <section className="xs:px-[12px] md:px-[24px]">
-        <Link
-          href="/community/question"
-          className="my-[20px] flex h-[82px] w-full cursor-pointer items-center justify-between rounded-[12px] bg-[#3ddacb] px-[16px]"
-        >
-          <div className="flex flex-col">
-            <span className="text-[14px] text-[#fff]">
-              원하는 정보가 없다면?
-            </span>
-            <span className="text-[20px] font-semibold text-[#fff]">
-              질문하기
-            </span>
-          </div>
-          <RightArrowIcon />
-        </Link>
+      <section className="min-h-screen xs:px-[12px] md:px-[24px]">
+        <CommunityQuestionButton />
         {res && <Community communites={res} />}
       </section>
       <Nav />

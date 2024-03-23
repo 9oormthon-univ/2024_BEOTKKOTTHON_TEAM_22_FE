@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface MainCategoryItemProps {
   item: { name: string; code: number };

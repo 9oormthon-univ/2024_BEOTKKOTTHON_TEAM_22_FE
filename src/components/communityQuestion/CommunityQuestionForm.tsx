@@ -7,10 +7,12 @@ import Image from 'next/image';
 import { postCommunityDetail } from '@/apis/postCommunityDetail';
 import { CameraIcon, CancelCircleIcon } from '../common/Icons';
 
+import { fromClientRevalidateTag } from '@/app/api/revalidate';
+
 interface CommunityQuestionForm {
   title: string;
   content: string;
-  imageurl: string[];
+  imageurl: File[];
   email: string;
 }
 
@@ -21,22 +23,39 @@ const CommunityQuestionForm = () => {
     title: '',
     content: '',
     imageurl: [],
-    email: 'test01@naver.com',
+    email: '',
   });
 
   const router = useRouter();
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    postCommunityDetail(formData);
-    setFormData({
-      title: '',
-      content: '',
-      imageurl: [],
-      email: '',
-    });
-    // id값 디테일로 이동해야 함.
-    router.push('/community');
+    const userInfo = localStorage.getItem('user');
+    if (userInfo !== null && userInfo !== undefined) {
+      const userObject = JSON.parse(userInfo);
+      const email = userObject.email;
+
+      const formDataToSend = new FormData();
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('content', formData.content);
+      formData.imageurl.forEach((image) => {
+        formDataToSend.append('imageurl', image);
+      });
+
+      formDataToSend.append('email', email);
+
+      const res = await postCommunityDetail(formDataToSend);
+
+      fromClientRevalidateTag('communityItems');
+      setFormData({
+        title: '',
+        content: '',
+        imageurl: [],
+        email: '',
+      });
+
+      router.push(`/community/${res.response.id}`);
+    }
   };
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,10 +68,9 @@ const CommunityQuestionForm = () => {
   const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const files: FileList = e.target.files;
-      const imageUrls: string[] = [];
+      const selectedFiles: File[] = [];
 
       const selectedFileCount = formData.imageurl.length;
-
       const remainingCapacity = 5 - selectedFileCount;
 
       if (files.length > remainingCapacity) {
@@ -61,23 +79,13 @@ const CommunityQuestionForm = () => {
       }
 
       for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-
-        reader.onload = () => {
-          const imageUrl = reader.result as string;
-          imageUrls.push(imageUrl);
-
-          if (imageUrls.length === files.length) {
-            setFormData({
-              ...formData,
-              imageurl: [...formData.imageurl, ...imageUrls],
-            });
-          }
-        };
-
-        reader.readAsDataURL(file);
+        selectedFiles.push(files[i]);
       }
+
+      setFormData({
+        ...formData,
+        imageurl: [...formData.imageurl, ...selectedFiles],
+      });
     }
   };
 
@@ -85,6 +93,14 @@ const CommunityQuestionForm = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
     }
+  };
+
+  const onClickImageCancle = (index: number) => {
+    const updatedImageUrls = formData.imageurl.filter((_, i) => i !== index);
+    setFormData({
+      ...formData,
+      imageurl: updatedImageUrls,
+    });
   };
 
   return (
@@ -137,7 +153,7 @@ const CommunityQuestionForm = () => {
           {formData.imageurl.map((_item, index) => (
             <div key={index} className="relative ">
               <Image
-                src={formData.imageurl[index]}
+                src={URL.createObjectURL(formData.imageurl[index])}
                 width="0"
                 height="0"
                 sizes="100vw"
@@ -150,7 +166,10 @@ const CommunityQuestionForm = () => {
                 }}
                 className="h-[80px] min-h-[80px] w-[80px] min-w-[80px]"
               />
-              <div className="absolute right-[-10px] top-[-5px] z-50 cursor-pointer">
+              <div
+                onClick={() => onClickImageCancle(index)}
+                className="absolute right-[-10px] top-[-5px] z-50 cursor-pointer"
+              >
                 <CancelCircleIcon />
               </div>
             </div>

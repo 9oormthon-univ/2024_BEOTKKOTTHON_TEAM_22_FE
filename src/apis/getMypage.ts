@@ -5,9 +5,9 @@ export interface Response {
 }
 
 export interface UserInfoData {
-  nickname: string,
-  totalpoint:number,
-  grade: string,
+  nickname: string;
+  totalpoint: number;
+  grade: string;
 }
 
 export const getMypage = async (email: string): Promise<Response> => {
@@ -17,7 +17,7 @@ export const getMypage = async (email: string): Promise<Response> => {
       throw new Error('Network response was not ok');
     }
     const data = await res.json();
-    console.log("getMypage_Data",data);
+
     return data;
   } catch (err) {
     console.log(err);
