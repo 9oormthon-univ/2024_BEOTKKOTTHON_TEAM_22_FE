@@ -1,19 +1,18 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { showPopupState } from '@/recoil/showPopup';
 export default function LoginPopup() {
-  const [showPopup, setShowPopup] = useState(true);
+  const  [popupState,setPopupState] =useRecoilState(showPopupState)
 
-  const handleCancle = () =>{
-    setShowPopup(false)
+  const handleCancel = () =>{
+    setPopupState(false)
   }
 
-  useEffect(() => {
 
-  }, [showPopup]);
   return (
     <>
-      {showPopup && (
+      {popupState && (
         <div className=" fixed inset-0 text-center flex justify-center items-center">
           <div className="w-[330px] h-[221px] bg-white rounded-[20px] border-[2px] border-lightGray">
             <h2 className="mt-[36px] text-[18px] font-bold">로그인이 필요한 서비스입니다.</h2>
@@ -23,7 +22,7 @@ export default function LoginPopup() {
             </Link>
             <div className="flex-auto mb-[28px] flex justify-center items-center gap-[20px]">
               <button
-                onClick={handleCancle}
+                onClick={handleCancel}
                 className="w-[108px] h-[56px] border-[1px] border-lightGray text-black rounded-[12px] "
               >
                 취소

@@ -5,6 +5,8 @@ import { HomeIcon, BookmarkIcon, CommunityIcon, MypageIcon } from './Icons';
 import { getAccessToken, getEmailFromAccessToken } from '@/utils/auth';
 import { useState } from 'react';
 import LoginPopup from '@/components/common/LoginPopup';
+import { getShowPopupState, showPopupState } from '@/recoil/showPopup';
+import { useRecoilState } from 'recoil';
 
 
 const Nav = () => {
@@ -17,19 +19,19 @@ const Nav = () => {
   };
 
   const router = useRouter();
-  const [showPopup, setShowPopup] = useState(false); // 팝업 상태 state
+  const  [popupState,setPopupState] =useRecoilState(showPopupState)
 
   const handleLinkClick = () => {
+    setPopupState(true)
     const accessToken = getAccessToken();
     console.log('accessToken',accessToken)
     if (accessToken) {
       console.log('accessToken',accessToken)
-      const userEmail = getEmailFromAccessToken();
+      // const userEmail = getEmailFromAccessToken();
+      const userId = 'dddddd';
       // access_token이 있는 경우 해당 URL로 이동
-      router.push(`/mypage/${userEmail}`);
-    } else {
-      // access_token이 없는 경우 팝업 컴포넌트 띄우기
-      setShowPopup(true);
+      router.push(`/mypage/${userId}`);
+
     }
   };
 
@@ -83,7 +85,7 @@ const Nav = () => {
             마이페이지
           </span>
         </div>
-        {showPopup && <LoginPopup/>}
+        {popupState && <LoginPopup/>}
       </div>
     </nav>
   );
